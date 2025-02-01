@@ -23,5 +23,10 @@
         {
             Console.WriteLine($"Точка росы при температуре {temperature}°C и влажности {humidity}% составляет {dewPoint}.");
         }
+
+        public static void PrintObjectsQuantity (int objectsQuantity)
+        {
+            Console.WriteLine($"Количество экземпляров класса Weather, созданных в программе на данный момент, равно {objectsQuantity}.");
+        }
     }
 }

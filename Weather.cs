@@ -157,7 +157,7 @@ namespace lab9
         /// </summary>
         public static void ShowObjectsQuantity()
         {
-            Console.WriteLine($"Количество экземпляров класса Weather, созданных в программе на данный момент, равно {objectsQuantity}.");
+            OutputClass.PrintObjectsQuantity(objectsQuantity);
         }
 
         /// <summary>
