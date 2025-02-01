@@ -131,15 +131,7 @@ namespace lab9
         /// </summary>
         public void ShowWeatherConditions()
         {
-            Console.WriteLine($"Температура воздуха {Temperature}°C; влажность {Humidity}%; давление {Pressure} мм рт. ст.");
-        }
-
-        /// <summary>
-        /// вывод числа созданных экземпляров класса
-        /// </summary>
-        public static void ShowObjectsQuantity()
-        {
-            Console.WriteLine($"Количество экземпляров класса Weather, созданных в программе на данный момент, равно {objectsQuantity}.");
+            OutputClass.PrintObjectProperties(Temperature, Humidity, Pressure);
         }
 
         /// <summary>
@@ -158,6 +150,14 @@ namespace lab9
         public static void ShowDewPoint(double temperature, int humidity)
         {
             OutputClass.PrintDewPointValue(temperature, humidity, CountDewPoint(temperature, humidity));
+        }
+
+        /// <summary>
+        /// вывод числа созданных экземпляров класса
+        /// </summary>
+        public static void ShowObjectsQuantity()
+        {
+            Console.WriteLine($"Количество экземпляров класса Weather, созданных в программе на данный момент, равно {objectsQuantity}.");
         }
 
         /// <summary>
