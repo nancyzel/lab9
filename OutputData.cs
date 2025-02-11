@@ -3,14 +3,13 @@
     internal class OutputData
     {
         /// <summary>
-        /// вывод свойств объекта
+        /// вывод свойств объекта Weather (температура, влажность, давление)
         /// </summary>
-        /// <param name="temperature">температура воздуха, в градусах Цельсия</param>
-        /// <param name="humidity">влажность воздуха, в %</param>
-        /// <param name="pressure">атмосферное давление, в мм рт.ст.</param>
-        public static void PrintObjectProperties(double temperature, int humidity, double pressure)
+        /// <param name="currentWeather">объект класса Weather с набором характеристик: температура, влажность, давление</param>
+        public static void PrintObjectProperties(Weather currentWeather)
         {
-            Console.WriteLine($"Температура воздуха {temperature}°C; влажность {humidity}%; давление {pressure} мм рт. ст.");
+            currentWeather.ShowWeatherConditions(out double currentTemperature, out int currentHumidity, out int currentPressure);
+            Console.WriteLine($"Температура воздуха {currentTemperature}°C; влажность {currentHumidity}%; давление {currentPressure} мм рт. ст.");
         }
 
         /// <summary>

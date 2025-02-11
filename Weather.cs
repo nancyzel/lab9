@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace lab9
+﻿namespace lab9
 {
     internal class Weather
     {
@@ -23,6 +17,9 @@ namespace lab9
         /// </summary>
         private int pressure;
 
+        /// <summary>
+        /// количество созданных объектов
+        /// </summary>
         static int objectsQuantity = 0;
 
         /// <summary>
@@ -129,17 +126,28 @@ namespace lab9
         /// <summary>
         /// вывод атрибутов объекта
         /// </summary>
-        public void ShowWeatherConditions()
+        public void ShowWeatherConditions(out double currentTemperature, out int currentHumidity, out int currentPressure)
         {
-            OutputClass.PrintObjectProperties(Temperature, Humidity, Pressure);
+            currentTemperature = Temperature;
+            currentHumidity = Humidity;
+            currentPressure = Pressure;
         }
 
         /// <summary>
         /// вывод значения точки росы - метод класса
         /// </summary>
-        public void ShowDewPoint()
+        /// <param name="studiedTemperature">Подставляемое в формулу значение </param>
+        /// <param name="studiedHumidity"></param>
+        /// <returns></returns>
+        public double GetDewPoint(out double studiedTemperature, out int studiedHumidity)
         {
-            OutputClass.PrintDewPointValue(Temperature, Humidity, CountDewPoint(Temperature, Humidity));
+            const double a = 17.27;
+            const double b = 237.7;
+            studiedTemperature = Temperature;
+            studiedHumidity = Humidity;
+            double dewPointCoefficient = (a * studiedTemperature) / (b + studiedTemperature) + Math.Log(((double)studiedHumidity / 100));
+            double dewPoint = (b * dewPointCoefficient) / (a - dewPointCoefficient);
+            return Math.Round(dewPoint, 4);
         }
 
         /// <summary>
@@ -149,7 +157,7 @@ namespace lab9
         /// <param name="humidity">влажность, в %</param>
         public static void ShowDewPoint(double temperature, int humidity)
         {
-            OutputClass.PrintDewPointValue(temperature, humidity, CountDewPoint(temperature, humidity));
+            OutputData.PrintDewPointValue(temperature, humidity, CountDewPoint(temperature, humidity));
         }
 
         /// <summary>
@@ -157,7 +165,7 @@ namespace lab9
         /// </summary>
         public static void ShowObjectsQuantity()
         {
-            OutputClass.PrintObjectsQuantity(objectsQuantity);
+            OutputData.PrintObjectsQuantity(objectsQuantity);
         }
 
         /// <summary>

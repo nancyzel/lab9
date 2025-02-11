@@ -6,16 +6,16 @@
         {
             // Part 1
             Weather weatherMonday = new Weather();
-            weatherMonday.ShowWeatherConditions();
+            OutputData.PrintObjectProperties(weatherMonday);
 
             Weather weatherTuesday = new Weather(30, 5, 800);
-            weatherTuesday.ShowWeatherConditions();
+            OutputData.PrintObjectProperties(weatherTuesday);
 
             Weather weatherWednesday = new Weather(weatherTuesday);
-            weatherWednesday.ShowWeatherConditions();
+            OutputData.PrintObjectProperties(weatherWednesday);
 
             Weather weatherThursday = new Weather(25.5);
-            weatherThursday.ShowWeatherConditions();
+            OutputData.PrintObjectProperties(weatherThursday);
             weatherThursday.ShowDewPoint();
 
             Weather.ShowDewPoint(20.5, 27);
