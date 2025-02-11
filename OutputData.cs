@@ -1,6 +1,6 @@
 ﻿namespace lab9
 {
-    internal class OutputClass
+    internal class OutputData
     {
         /// <summary>
         /// вывод свойств объекта
