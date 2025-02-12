@@ -13,18 +13,28 @@
         }
 
         /// <summary>
-        /// Вывод значения точки росы
+        /// Вывод значения точки росы (демонстрация работы метода класса)
         /// </summary>
-        /// <param name="temperature">температура, в градусах Цельсия</param>
-        /// <param name="humidity">влажность, в %</param>
-        /// <param name="dewPoint">значение точки росы</param>
-        public static void PrintDewPointValue(double temperature, int humidity, double dewPoint)
+        /// <param name="currentWeather">объект класса Weather с набором характеристик: температура, влажность, давление</param>
+        public static void PrintDewPointValueClassMethodWay(Weather currentWeather)
         {
+            double dewPoint = currentWeather.GetDewPointClassMethod(out double temperature, out int humidity);
             Console.WriteLine($"Точка росы при температуре {temperature}°C и влажности {humidity}% составляет {dewPoint}.");
         }
 
-        public static void PrintObjectsQuantity (int objectsQuantity)
+        /// <summary>
+        /// Вывод значения точки росы (демонстрация работы статического метода)
+        /// </summary>
+        /// <param name="currentWeather">объект класса Weather с набором характеристик: температура, влажность, давление</param>
+        public static void PrintDewPointValueStaticWay(Weather currentWeather)
         {
+            double dewPoint = Weather.GetDewPointStaticMethod(currentWeather, out double temperature, out int humidity);
+            Console.WriteLine($"Точка росы при температуре {temperature}°C и влажности {humidity}% составляет {dewPoint}.");
+        }
+
+        public static void PrintObjectsQuantity()
+        {
+            int objectsQuantity = Weather.GetObjectsQuantity();
             Console.WriteLine($"Количество экземпляров класса Weather, созданных в программе на данный момент, равно {objectsQuantity}.");
         }
     }

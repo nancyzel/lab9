@@ -136,10 +136,10 @@
         /// <summary>
         /// вывод значения точки росы - метод класса
         /// </summary>
-        /// <param name="studiedTemperature">Подставляемое в формулу значение </param>
-        /// <param name="studiedHumidity"></param>
-        /// <returns></returns>
-        public double GetDewPoint(out double studiedTemperature, out int studiedHumidity)
+        /// <param name="studiedTemperature">Температура</param>
+        /// <param name="studiedHumidity">Влажность</param>
+        /// <returns>значение точки росы</returns>
+        public double GetDewPointClassMethod(out double studiedTemperature, out int studiedHumidity)
         {
             const double a = 17.27;
             const double b = 237.7;
@@ -151,50 +151,94 @@
         }
 
         /// <summary>
-        /// вывод значения точки росы - статическая функция
+        /// вывод значения точки росы - метод класса
         /// </summary>
-        /// <param name="temperature">температура, в градусах Цельсия</param>
-        /// <param name="humidity">влажность, в %</param>
-        public static void ShowDewPoint(double temperature, int humidity)
+        /// <param name="currentWeather">объект класса Weather с набором характеристик: температура, влажность, давление</param>
+        /// <param name="studiedTemperature">Температура</param>
+        /// <param name="studiedHumidity">Влажность</param>
+        /// <returns>значение точки росы</returns>
+        public static double GetDewPointStaticMethod(Weather currentWeather, out double studiedTemperature, out int studiedHumidity)
         {
-            OutputData.PrintDewPointValue(temperature, humidity, CountDewPoint(temperature, humidity));
+            const double a = 17.27;
+            const double b = 237.7;
+            studiedTemperature = currentWeather.Temperature;
+            studiedHumidity = currentWeather.Humidity;
+            double dewPointCoefficient = (a * studiedTemperature) / (b + studiedTemperature) + Math.Log(((double)studiedHumidity / 100));
+            double dewPoint = (b * dewPointCoefficient) / (a - dewPointCoefficient);
+            return Math.Round(dewPoint, 4);
         }
 
         /// <summary>
         /// вывод числа созданных экземпляров класса
         /// </summary>
-        public static void ShowObjectsQuantity()
+        public static int GetObjectsQuantity()
         {
-            OutputData.PrintObjectsQuantity(objectsQuantity);
+            return objectsQuantity;
         }
 
         /// <summary>
-        /// функция для вспомогательных вычислений из формулы точки росы (a*temperature/(b+temperature)+ln(relativeHumidity/100
+        /// Оператор нахождения противоположного по значению элемента
         /// </summary>
-        /// <param name="temperature">температура, в градусах цельсия</param>
-        /// <param name="relativeHumidity">влажность, в %</param>
-        /// <returns>результат вспомогательных вычислений</returns>
-        private static double CountDewPointCoefficient(double temperature, int relativeHumidity)
+        /// <param name="currentWeather">Исходный объект класса Weather с набором характеристик: температура, влажность, давление</param>
+        /// <returns>объект класса Weather с набором характеристик: температура, влажность, давление</returns>
+        public static Weather operator -(Weather currentWeather)
         {
-            const double a = 17.27;
-            const double b = 237.7;
-            double dewPointCoefficient = (a * temperature) / (b + temperature) + Math.Log(((double)relativeHumidity / 100));
-            return dewPointCoefficient;
+            Weather updatedWeather = new Weather();
+            updatedWeather.Temperature = -currentWeather.Temperature;
+            updatedWeather.Humidity = currentWeather.Humidity;
+            updatedWeather.Pressure = currentWeather.Pressure;
+            return updatedWeather;
         }
 
-        /// <summary>
-        /// расчет непосредственно точки росы
-        /// </summary>
-        /// <param name="temperature">температура, в градусах Цельсия</param>
-        /// <param name="relativeHumidity">влажность, в %</param>
-        /// <returns>точка росы, значение округлено до 4 знаков после запятой</returns>
-        private static double CountDewPoint(double temperature, int relativeHumidity)
+        public static bool operator !(Weather currentWeather)
         {
-            const double a = 17.27;
-            const double b = 237.7;
-            double dewPointCoefficient = CountDewPointCoefficient(temperature, relativeHumidity);
-            double dewPoint = (b * dewPointCoefficient) / (a - dewPointCoefficient);
-            return Math.Round(dewPoint, 4);
+            bool isHumidityHigh = false;
+            if (currentWeather.Humidity > 80)
+            {
+                isHumidityHigh = true;
+            }
+            return isHumidityHigh;
+        }
+
+        public static implicit operator double(Weather currentWeather)
+        {
+            double studiedTemperature = currentWeather.Temperature * 9 / 5 + 32;
+            int studiedHumidity = currentWeather.Humidity;
+            double humIndexValue = -42.379 + (2.04901523 * studiedTemperature) + (10.14333127 * studiedHumidity) 
+                - (0.22475541 * studiedTemperature * studiedHumidity) 
+                - (0.00683783 * Math.Pow(studiedTemperature, 2)) - (0.05481717 * Math.Pow(studiedHumidity, 2)) 
+                + (0.00122874 * Math.Pow(studiedTemperature, 2) * studiedHumidity) 
+                + (0.00085282 * studiedTemperature * Math.Pow(studiedHumidity, 2)) 
+                - (0.00000199 * Math.Pow(studiedTemperature, 2) * Math.Pow(studiedHumidity, 2));
+            return Math.Round(humIndexValue, 2);
+        }
+
+        public static explicit operator bool(Weather currentWeather)
+        {
+            bool isPressureHigh = false;
+            if (currentWeather.Pressure > 760)
+            {
+                isPressureHigh = true;
+            }
+            return isPressureHigh;
+        }
+
+        public static Weather operator -(Weather currentWeather, double temperatureDelta)
+        {
+            Weather updatedWeather = new Weather();
+            updatedWeather.Temperature = currentWeather.Temperature - temperatureDelta;
+            updatedWeather.Humidity = currentWeather.Humidity;
+            updatedWeather.Pressure = currentWeather.Pressure;
+            return updatedWeather;
+        }
+
+        public static Weather operator *(Weather currentWeather, double parametersChangePercent)
+        {
+            Weather updatedWeather = new Weather();
+            updatedWeather.Temperature = currentWeather.Temperature * (1 + parametersChangePercent);
+            updatedWeather.Humidity = (int)(currentWeather.Humidity * (1 + parametersChangePercent));
+            updatedWeather.Pressure = (int)(currentWeather.Pressure * (1 + parametersChangePercent));
+            return updatedWeather;
         }
     }
 }

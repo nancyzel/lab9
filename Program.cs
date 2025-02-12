@@ -13,16 +13,33 @@
 
             Weather weatherWednesday = new Weather(weatherTuesday);
             OutputData.PrintObjectProperties(weatherWednesday);
+            OutputData.PrintDewPointValueStaticWay(weatherWednesday);
 
-            Weather weatherThursday = new Weather(25.5);
+            Weather weatherThursday = new Weather(25);
             OutputData.PrintObjectProperties(weatherThursday);
-            weatherThursday.ShowDewPoint();
+            OutputData.PrintDewPointValueClassMethodWay(weatherThursday);
 
-            Weather.ShowDewPoint(20.5, 27);
+            OutputData.PrintObjectsQuantity();
 
-            Weather.ShowObjectsQuantity();
+            Console.WriteLine();
 
+            //Part 2
+            Weather weatherDay1 = -weatherMonday;
+            OutputData.PrintObjectProperties(weatherDay1);
 
+            Console.WriteLine($"Истинность утверждения, что влажность воздуха выше 80%: {!weatherDay1}");
+
+            double humIndexValue = weatherThursday;
+            Console.WriteLine(humIndexValue);
+
+            Console.WriteLine($"Истинность утверждения о том, что атмосферное давление в понедельник выше нормы (760 мм рт. ст.): {(bool)weatherMonday}");
+            Console.WriteLine($"Истинность утверждения о том, что атмосферное давление во вторник выше нормы (760 мм рт. ст.): {(bool)weatherTuesday}");
+
+            OutputData.PrintObjectProperties(weatherThursday-5);
+
+            OutputData.PrintObjectProperties(weatherThursday * 1.5);
+
+            Console.WriteLine();
         }
     }
 }
