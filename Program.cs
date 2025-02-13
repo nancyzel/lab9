@@ -2,6 +2,47 @@
 {
     internal class Program
     {
+        public static double CountArrayTemperatureAmplitude(WeatherObjectsCollection weatherArray)
+        {
+            double temperatureAmplitude;
+            if (weatherArray == null || weatherArray.Length == 0)
+                temperatureAmplitude = -1;
+            else
+            {
+                Weather minimumTemperature = weatherArray[0];
+                Weather maximumTemperature = weatherArray[0];
+                for (int i = 1; i < weatherArray.Length; i++)
+                {
+                    if (weatherArray[i] < minimumTemperature)
+                    {
+                        minimumTemperature = weatherArray[i];
+                    }
+                    else
+                    {
+                        if (weatherArray[i] > maximumTemperature)
+                        {
+                            maximumTemperature = weatherArray[i];
+                        }
+                    }
+                }
+                temperatureAmplitude = maximumTemperature - minimumTemperature;
+            }
+            return temperatureAmplitude;
+        }
+
+        public static void PrintArrayTemperatureAmplitude(WeatherObjectsCollection weatherArray)
+        {
+            double temperatureAmplitude = CountArrayTemperatureAmplitude(weatherArray);
+            if (temperatureAmplitude < 0)
+            {
+                Console.WriteLine("Коллекция пустая, поэтому амплитуду температур определить невозможно.");
+            }
+            else
+            {
+                Console.WriteLine($"Амплитуда температур в коллекции составляет {temperatureAmplitude}.");
+            }
+        }
+
         static void Main()
         {
             // Part 1
@@ -45,9 +86,44 @@
             Console.WriteLine();*/
 
             //Part 3
-            WeatherObjectsCollection weatherArray = new(5);
-            //weatherArray.Show();
-            OutputData.PrintWeatherArrayElements(weatherArray);
+            WeatherObjectsCollection weatherArray1 = new(5); //создание новой коллекции, содержащей 5 объектов, заполненных случайными числами
+            OutputData.PrintWeatherArrayElements(weatherArray1); //вывод объектов коллекции
+            Console.WriteLine();
+
+            WeatherObjectsCollection weatherArray2 = new(weatherArray1); //создание новой коллекции, являющейся копией другой коллекции
+            OutputData.PrintWeatherArrayElements(weatherArray2); //вывод созданной коллекции
+            Console.WriteLine();
+
+            weatherArray1[0] = new Weather(30, 6, 800); //запись объекта с существующим индексом
+            OutputData.PrintWeatherArrayElements(weatherArray1);
+            OutputData.PrintWeatherArrayElements(weatherArray2);
+
+            OutputData.PrintObjectProperties(weatherArray1[1]); //получение объекта с существующим индексом
+
+            try
+            {
+                OutputData.PrintObjectProperties(weatherArray1[5]); //получение объекта с несуществующим индексом
+            }
+            catch(IndexOutOfRangeException exception)
+            {
+                Console.WriteLine(exception.Message);
+            }
+
+            try
+            {
+                weatherArray1[-1] = new Weather(); //запись объекта с несуществующим индексом
+            }
+            catch (IndexOutOfRangeException exception)
+            {
+                Console.WriteLine(exception.Message);
+            }
+            Console.WriteLine();
+
+            PrintArrayTemperatureAmplitude(weatherArray1);
+            Console.WriteLine();
+
+            OutputData.PrintObjectsQuantity();
+            OutputData.PrintCollectionsQuantity();
         }
     }
 }

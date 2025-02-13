@@ -241,6 +241,21 @@
             return updatedWeather;
         }
 
+        public static bool operator <(Weather currentWeather1, Weather currentWeather2)
+        {
+            return currentWeather1.Temperature < currentWeather2.Temperature;
+        }
+
+        public static bool operator >(Weather currentWeather1, Weather currentWeather2)
+        {
+            return currentWeather1.Temperature > currentWeather2.Temperature;
+        }
+
+        public static double operator -(Weather currentWeather1, Weather currentWeather2)
+        {
+            return currentWeather1.Temperature - currentWeather2.Temperature;
+        }
+
         public override bool Equals(object? checkedObject)
         {
             if (checkedObject is Weather checkedWeather)
