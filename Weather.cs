@@ -1,6 +1,6 @@
 ﻿namespace lab9
 {
-    internal class Weather
+    public class Weather
     {
         /// <summary>
         /// температура воздуха в градусах Цельсия

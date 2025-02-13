@@ -1,6 +1,6 @@
 ﻿namespace lab9
 {
-    internal class WeatherObjectsCollection
+    public class WeatherObjectsCollection
     {
         /// <summary>
         /// для генерации случайных чисел в объектах Weather
