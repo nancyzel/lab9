@@ -240,5 +240,19 @@
             updatedWeather.Pressure = (int)(currentWeather.Pressure * (1 + parametersChangePercent));
             return updatedWeather;
         }
+
+        public override bool Equals(object? checkedObject)
+        {
+            if (checkedObject is Weather checkedWeather)
+            {
+                return checkedWeather.Temperature == this.Temperature && checkedWeather.Humidity == this.Humidity && checkedWeather.Pressure == this.Pressure;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

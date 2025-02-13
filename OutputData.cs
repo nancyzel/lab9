@@ -37,5 +37,14 @@
             int objectsQuantity = Weather.GetObjectsQuantity();
             Console.WriteLine($"Количество экземпляров класса Weather, созданных в программе на данный момент, равно {objectsQuantity}.");
         }
+
+        public static void PrintWeatherArrayElements(WeatherObjectsCollection weatherArray)
+        {
+            Console.WriteLine("Состав массива объектов Weather:");
+            for (int i = 0; i < weatherArray.Length; i++)
+            {
+                PrintObjectProperties(weatherArray[i]);
+            } 
+        }
     }
 }

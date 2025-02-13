@@ -5,6 +5,7 @@
         static void Main()
         {
             // Part 1
+            /*
             Weather weatherMonday = new Weather();
             OutputData.PrintObjectProperties(weatherMonday);
 
@@ -39,7 +40,14 @@
 
             OutputData.PrintObjectProperties(weatherThursday * 1.5);
 
-            Console.WriteLine();
+            Console.WriteLine(weatherDay1.Equals(5));
+
+            Console.WriteLine();*/
+
+            //Part 3
+            WeatherObjectsCollection weatherArray = new(5);
+            //weatherArray.Show();
+            OutputData.PrintWeatherArrayElements(weatherArray);
         }
     }
 }
