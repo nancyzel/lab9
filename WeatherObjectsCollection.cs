@@ -52,7 +52,7 @@
             weatherObjectsArray = new Weather[arrayLength];
             for (int i = 0; i < arrayLength;i++)
             {
-                weatherObjectsArray[i] = new Weather(randomNumber.Next(-4000, 4000) / (double)100, randomNumber.Next(0, 100), randomNumber.Next(730, 800));
+                weatherObjectsArray[i] = new Weather(randomNumber.Next(-27300, 100000) / (double)100, randomNumber.Next(0, 100), randomNumber.Next(700, 900));
             }
             collectionsQuantity++;
         }

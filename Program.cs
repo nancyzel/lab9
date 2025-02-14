@@ -46,7 +46,6 @@
         static void Main()
         {
             // Part 1
-            /*
             Weather weatherMonday = new Weather();
             OutputData.PrintObjectProperties(weatherMonday);
 
@@ -83,15 +82,19 @@
 
             Console.WriteLine(weatherDay1.Equals(5));
 
-            Console.WriteLine();*/
+            Console.WriteLine();
 
             //Part 3
             WeatherObjectsCollection weatherArray1 = new(5); //создание новой коллекции, содержащей 5 объектов, заполненных случайными числами
             OutputData.PrintWeatherArrayElements(weatherArray1); //вывод объектов коллекции
             Console.WriteLine();
 
-            WeatherObjectsCollection weatherArray2 = new(weatherArray1); //создание новой коллекции, являющейся копией другой коллекции
-            OutputData.PrintWeatherArrayElements(weatherArray2); //вывод созданной коллекции
+            WeatherObjectsCollection weatherArray2 = OutputData.CreateWeatherCollection(5); //создание новой коллекции, содержащей 5 объектов, заполненных случайными числами
+            OutputData.PrintWeatherArrayElements(weatherArray2); //вывод объектов коллекции
+            Console.WriteLine();
+
+            WeatherObjectsCollection weatherArray3 = new(weatherArray1); //создание новой коллекции, являющейся копией другой коллекции
+            OutputData.PrintWeatherArrayElements(weatherArray3); //вывод созданной коллекции
             Console.WriteLine();
 
             weatherArray1[0] = new Weather(30, 6, 800); //запись объекта с существующим индексом
@@ -104,7 +107,7 @@
             {
                 OutputData.PrintObjectProperties(weatherArray1[5]); //получение объекта с несуществующим индексом
             }
-            catch(IndexOutOfRangeException exception)
+            catch (IndexOutOfRangeException exception)
             {
                 Console.WriteLine(exception.Message);
             }
